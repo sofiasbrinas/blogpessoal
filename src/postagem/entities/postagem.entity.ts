@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Tema } from '../../tema/entities/tema.entity';
 
 @Entity('tb_postagens')
 export class Postagem {
@@ -13,4 +14,7 @@ export class Postagem {
 
   @Column({ length: 5000, nullable: true })
   foto!: string;
+
+  @ManyToOne(() => Tema, (tema) => tema.postagem)
+  tema!: Tema;
 }
