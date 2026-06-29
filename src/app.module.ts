@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PostagemModule } from './postagem/postagem.module';
 import { TemaModule } from './tema/tema.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { TemaModule } from './tema/tema.module';
     }),
     PostagemModule,
     TemaModule,
+    UsuarioModule,
   ],
   controllers: [AppController],
   providers: [AppService],
