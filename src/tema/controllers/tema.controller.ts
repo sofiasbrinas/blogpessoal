@@ -9,10 +9,12 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 import { TemaService } from '../services/tema.service';
 import { Tema } from '../entities/tema.entity';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 
 @Controller('/temas')
 export class TemaController {
@@ -36,18 +38,21 @@ export class TemaController {
     return this.temaService.findByDescricao(descricao);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   @HttpCode(HttpStatus.CREATED)
   create(@Body() tema: Tema): Promise<Tema> {
     return this.temaService.create(tema);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put()
   @HttpCode(HttpStatus.OK)
   update(@Body() tema: Tema): Promise<Tema> {
     return this.temaService.update(tema);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete('/:id')
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {

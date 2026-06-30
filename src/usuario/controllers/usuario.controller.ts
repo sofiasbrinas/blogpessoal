@@ -8,9 +8,11 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../entities/usuario.entity';
+import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -34,6 +36,7 @@ export class UsuarioController {
     return this.usuarioService.create(usuario);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Put('/atualizar')
   @HttpCode(HttpStatus.OK)
   update(@Body() usuario: Usuario): Promise<Usuario> {
